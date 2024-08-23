@@ -2,7 +2,9 @@ import sys
 import pygame
 from bullet import Bullet
 from alien import Alien
+from stars import Star
 from time import sleep
+import random
 
 def checkdown(event, settings, screen, ship, bullets):
     if event.key == pygame.K_d:
@@ -46,13 +48,16 @@ def checkplaybutton(settings, screen, stats, playbutton, ship, aliens,bullets, m
         createfleet(settings, screen, ship, aliens)
         ship.center_ship()
 
-def updatescreen(settings, screen, stats, sb, ship, aliens, bullets,playbutton):
+def updatescreen(settings, screen, stats, sb, ship, aliens, bullets,playbutton, stars):
     screen.fill(settings.bg)
+    for star in stars.sprites():
+        star.drawstars()
     for bullet in bullets.sprites():
         bullet.drawbullet()
     ship.blitme()
     aliens.draw(screen)
     sb.showscore()
+    
 
     if not stats.gameactive:
         playbutton.drawbutton()
@@ -151,3 +156,10 @@ def updatealiens(settings, stats, screen, ship,  aliens, bullets):
         checkaliensbottom(settings, stats, screen, ship, aliens, bullets)
 
 
+def initstars(stars, screen, settings):
+    stars.empty()
+    for i in range(5):
+        x = random.randint(0, settings.screenWidth)
+        y = random.randint(0, settings.screenHeight)
+        newstar = Star(screen, x, y)
+        stars.add()

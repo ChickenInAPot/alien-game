@@ -17,6 +17,8 @@ class Settings():
  
         self.fleetdropspeed = 10
         self.speedup = 1.1
+        
+        self.numstars = 50
 
         self.initalizedynamicsettings()
 

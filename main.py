@@ -8,6 +8,7 @@ from alien import Alien
 from gamestats import GameStats
 from button import Button
 from scoreboard import Scoreboard
+from stars import Star
 
 def runGame():
     pygame.init()
@@ -23,8 +24,11 @@ def runGame():
     ship = Ship(gameSettings, screen)
     bullets = Group()
     aliens = Group()
+    stars = Group()
+    gf.initstars(stars, screen, gameSettings)
     gf.createfleet(gameSettings, screen, ship, aliens) 
     sb = Scoreboard(gameSettings, screen, stats)
+    
 
     while True:
         gf.checkevnt(gameSettings, screen, stats, playbutton, ship, aliens,bullets)
@@ -32,7 +36,8 @@ def runGame():
             ship.update()
             gf.updatealiens(gameSettings, stats, screen, ship, aliens, bullets)
             gf.updatebullets(gameSettings, screen,stats, sb, ship, aliens, bullets)
-        gf.updatescreen(gameSettings, screen, stats, sb, ship, aliens, bullets,playbutton)
+        
+        gf.updatescreen(gameSettings, screen, stats, sb, ship, aliens, bullets,playbutton, stars)
             
 if __name__ == "__main__":
     runGame()
